@@ -6,7 +6,7 @@
 /*   By: cgaspart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 12:55:07 by cgaspart          #+#    #+#             */
-/*   Updated: 2017/12/11 13:59:03 by cgaspart         ###   ########.fr       */
+/*   Updated: 2017/12/12 15:42:03 by cgaspart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,46 @@
 
 int		main(int argc, char **argv)
 {
-	DIR				*dir;
-	struct	dirent	*file;
+	struct	stat	fstat;
+	struct	passwd	*duser;
+	struct	group	*dgroup;
 
 	if (argc != 2)
 		exit (1);
-	dir = opendir(argv[1]);
-	if (dir == NULL)
+	if (stat(argv[1], &fstat) == -1)
 	{
 		perror("");
-		exit (1);
+		exit (0);
 	}
-	while ((file = readdir(dir)))
-	{
-		ft_putstr(file->d_name);
-		ft_putchar('\n');
-	}
+	ft_putstr("Nom: ");
+	ft_putstr(argv[1]);
+	ft_putchar('\n');
+
+	ft_putstr("Type: ");
+	ft_putstr(ft_type(fstat));
+
+	ft_putstr("Modes: ");
+	ft_putright(ft_right(fstat));
+	ft_putchar('\n');
+
+	ft_putstr("Nombre de liens: ");
+	ft_putnbr(fstat.st_nlink);
+	ft_putchar('\n');
+
+	duser = getpwuid(fstat.st_uid);
+	ft_putstr("Proprietaire: ");
+	ft_putstr(duser->pw_name);
+
+	ft_putchar('\n');
+
+	dgroup = getgrgid(fstat.st_gid);
+	ft_putstr("Groupe: ");
+	ft_putstr(dgroup->gr_name);
+
+	ft_putstr("Taille: ");
+	ft_putnbr(fstat.st_size);
+	ft_putstr(" octets\n");
+
+	ft_putstr("Date de derniere modification: ");
+	ft_date_converter(ctime(&fstat.st_mtime));
 }
