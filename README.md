@@ -1,4 +1,4 @@
-# ft_ls
+# Mini_ls
 This project is a reproduction of "ls" command with option (-l, -R, -a, -r, -t).
 
 CHANGELOG:
