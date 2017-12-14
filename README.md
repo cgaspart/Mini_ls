@@ -4,7 +4,7 @@ This project is a reproduction of "ls" command with option (-l, -R, -a, -r, -t).
 CHANGELOG:
 ----------
 
-V0.1 (Mini_ls):
+V01.0 (Mini_ls):
 
 >       USAGE: "./ft_ls [File / Dir]"
 >         - Print name of file / Dir
